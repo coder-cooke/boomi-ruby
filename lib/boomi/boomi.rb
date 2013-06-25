@@ -37,7 +37,7 @@ EOS
   end
   
   def get_events(opts)
-    put("#{@account}/Event/query?overrideAccount=#{@override_account}", make_query(opts))
+    post("#{@account}/Event/query?overrideAccount=#{@override_account}", make_query(opts))
   end
 
 
