@@ -72,7 +72,7 @@ EOS
           operator ||= 'EQUALS'
 
           "<nestedExpression operator='#{operator}' property='#{field}' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:type='SimpleExpression'>
-              <argument>#{value.is_a?(Time) ? value.iso8601 : value}</argument>
+              <argument>#{value.is_a?(Time) ? boomi_time(value) : value}</argument>
           </nestedExpression>"
         end.join('\n')
       }
@@ -80,6 +80,10 @@ EOS
   </QueryFilter>
 </QueryConfig>
 EXPR
+    end
+
+    def boomi_time(t)
+      t.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     end
 
     def get(url)
