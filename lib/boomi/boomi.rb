@@ -120,7 +120,7 @@ EXPR
     end
   
     def parse(content)
-      return if content.blank?
+      return if content.empty?
       XmlSimple.xml_in(content)
     end
 end
