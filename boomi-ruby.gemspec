@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "boomi-ruby.gemspec",
     "lib/boomi-ruby.rb",
     "lib/boomi/boomi.rb",
     "test/helper.rb",
