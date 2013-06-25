@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "boomi-ruby"
   gem.homepage = "http://github.com/coupacooke/boomi-ruby"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Ruby gem for Boomi webservices}
+  gem.description = %Q{Supports the Boomi REST Webservice}
   gem.email = "charles@coupa.com"
   gem.authors = ["Charles Cooke"]
   # dependencies defined in Gemfile
