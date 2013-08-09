@@ -9,8 +9,7 @@ Providing the optional override_account will use the Boomi Partner API
   @boomi = Boomi.new(:account => 'boomi-account123', :user => 'boomiuser', :pass => 'boomipass', :override_account => 'mychildaccount')
   @boomi.get_execution_records("executionTime[GREATER_THAN_OR_EQUAL]" => 15.minutes.ago)
 
-== Copyright
+== License
 
-Copyright (c) 2013 Coupa Software. See LICENSE.txt for
-further details.
+Apache 2.0 License.  See LICENSE.txt for further details.
 
