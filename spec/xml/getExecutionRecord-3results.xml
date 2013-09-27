@@ -1,0 +1,52 @@
+<bns:QueryResult xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberOfResults="3">
+  <bns:result xsi:type="bns:ExecutionRecord">
+    <bns:executionId>execution-6b88a5d9-64b2-4734-a1b9-0a8b847352e0-2013.09.27</bns:executionId>
+    <bns:account>Boupa</bns:account>
+    <bns:executionTime>2013-09-27T18:00:00Z</bns:executionTime>
+    <bns:status>COMPLETE</bns:status>
+    <bns:executionType>exec_sched</bns:executionType>
+    <bns:processName>1 Coupa Boupa Widget</bns:processName>
+    <bns:processId></bns:processId>
+    <bns:atomName>Atom Cloud</bns:atomName>
+    <bns:atomId>6e282349-5952-4f21-8966-859f6d515503</bns:atomId>
+    <bns:inboundDocumentCount>1</bns:inboundDocumentCount>
+    <bns:outboundDocumentCount>0</bns:outboundDocumentCount>
+    <bns:executionDuration>187307</bns:executionDuration>
+    <bns:inboundDocumentSize>0</bns:inboundDocumentSize>
+    <bns:outboundDocumentSize>0</bns:outboundDocumentSize>
+  </bns:result>
+  <bns:result xsi:type="bns:ExecutionRecord">
+    <bns:executionId>execution-68471c69-a2cf-403c-8640-11af290ebcb6-2013.09.27</bns:executionId>
+    <bns:account>Boupa</bns:account>
+    <bns:executionTime>2013-09-27T18:02:12Z</bns:executionTime>
+    <bns:status>COMPLETE</bns:status>
+    <bns:executionType>sub_process</bns:executionType>
+    <bns:processName>1.1 Coupa Boupa</bns:processName>
+    <bns:processId>f5d87522-a72a-45d2-9324-25c7804f96c6</bns:processId>
+    <bns:atomName>Atom Cloud</bns:atomName>
+    <bns:atomId>6e282349-5952-4f21-8966-859f6d515503</bns:atomId>
+    <bns:inboundDocumentCount>0</bns:inboundDocumentCount>
+    <bns:outboundDocumentCount>0</bns:outboundDocumentCount>
+    <bns:executionDuration>24530</bns:executionDuration>
+    <bns:topLevelExecutionId>execution-6b88a5d9-64b2-4734-a1b9-0a8b847352e0-2013.09.27</bns:topLevelExecutionId>
+    <bns:inboundDocumentSize>0</bns:inboundDocumentSize>
+    <bns:outboundDocumentSize>0</bns:outboundDocumentSize>
+  </bns:result>
+  <bns:result xsi:type="bns:ExecutionRecord">
+    <bns:executionId>execution-c734de55-f314-4416-9c61-0b1fe0a26d17-2013.09.27</bns:executionId>
+    <bns:account>Boupa</bns:account>
+    <bns:executionTime>2013-09-27T18:02:39Z</bns:executionTime>
+    <bns:status>COMPLETE</bns:status>
+    <bns:executionType>sub_process</bns:executionType>
+    <bns:processName>1.2 Coupa Boupa Master Process</bns:processName>
+    <bns:processId>2d554734-a437-4860-bf67-b4f882a9b763</bns:processId>
+    <bns:atomName>Atom Cloud</bns:atomName>
+    <bns:atomId>6e282349-5952-4f21-8966-859f6d515503</bns:atomId>
+    <bns:inboundDocumentCount>0</bns:inboundDocumentCount>
+    <bns:outboundDocumentCount>0</bns:outboundDocumentCount>
+    <bns:executionDuration>27141</bns:executionDuration>
+    <bns:topLevelExecutionId>execution-6b88a5d9-64b2-4734-a1b9-0a8b847352e0-2013.09.27</bns:topLevelExecutionId>
+    <bns:inboundDocumentSize>0</bns:inboundDocumentSize>
+    <bns:outboundDocumentSize>0</bns:outboundDocumentSize>
+  </bns:result>
+</bns:QueryResult>

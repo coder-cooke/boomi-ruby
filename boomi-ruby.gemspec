@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = "boomi-ruby"
-  s.version = "0.1.1"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Charles Cooke"]
@@ -16,22 +16,12 @@ Gem::Specification.new do |s|
     "LICENSE.txt",
     "README.rdoc"
   ]
-  s.files = [
-    ".document",
-    "Gemfile",
-    "Gemfile.lock",
-    "LICENSE.txt",
-    "README.rdoc",
-    "Rakefile",
-    "VERSION",
-    "boomi-ruby.gemspec",
-    "lib/boomi-ruby.rb",
-    "lib/boomi/boomi.rb",
-    "test/helper.rb",
-    "test/test_boomi-ruby.rb"
-  ]
+
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+
   s.homepage = "http://github.com/coupacooke/boomi-ruby"
-  s.licenses = ["MIT"]
+  s.licenses = ["APLv2"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.11"
   s.summary = "Ruby gem for Boomi webservices"

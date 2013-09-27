@@ -37,12 +37,12 @@ EOS
   end
   
   def get_events(opts)
-    post("#{@account}/Event/query?overrideAccount=#{@override_account}", make_query(opts))
+    post("#{@account}/Event/query"+(@override_account ? "?overrideAccount=#{@override_account}" : ""), make_query(opts))
   end
 
 
   def get_execution_records(opts)
-    post("#{@account}/ExecutionRecord/query?overrideAccount=#{@override_account}", make_query(opts))
+    post("#{@account}/ExecutionRecord/query"+(@override_account ? "?overrideAccount=#{@override_account}" : ""), make_query(opts))
   end
   
   def execute_process(atom_id,process_id)
@@ -74,7 +74,7 @@ EOS
           "<nestedExpression operator='#{operator}' property='#{field}' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:type='SimpleExpression'>
               <argument>#{value.is_a?(Time) ? boomi_time(value) : value}</argument>
           </nestedExpression>"
-        end.join('\n')
+        end.join("\n")
       }
     </expression>
   </QueryFilter>
@@ -89,7 +89,6 @@ EXPR
     def get(url)
       contents = @resource[url].get
       parsed = parse(contents)
-      parsed['queryToken'] 
     end
 
     def post(url,content)
@@ -105,8 +104,11 @@ EXPR
         else
           response = @resource[url].post(content)
         end
-        if xml_doc = parse(response)       
-          results += xml_doc['result'] if xml_doc['result']
+        if xml_doc = parse(response)
+          results =
+            if xml_doc['result']
+              xml_doc['result'].is_a?(Array) ? results + xml_doc['result'] : [xml_doc['result']]
+            end
           query_token = xml_doc['queryToken'] && xml_doc['queryToken'].first
         end
       rescue RestClient::BadRequest => e
@@ -121,6 +123,6 @@ EXPR
   
     def parse(content)
       return if content.empty?
-      XmlSimple.xml_in(content)
+      XmlSimple.xml_in(content, { 'NoAttr' => true, 'ForceArray' => false})
     end
 end

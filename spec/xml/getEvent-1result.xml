@@ -1,0 +1,22 @@
+<bns:QueryResult xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberOfResults="1">
+  <bns:result xsi:type="bns:Event">
+    <bns:eventId>event-9629753e-e11a-44b7-9739-a7f735048f25</bns:eventId>
+    <bns:accountId>Boopa</bns:accountId>
+    <bns:atomId>atom</bns:atomId>
+    <bns:atomName>Atom Cloud</bns:atomName>
+    <bns:eventLevel>INFO</bns:eventLevel>
+    <bns:eventDate>2013-09-27T18:00:00Z</bns:eventDate>
+    <bns:status>COMPLETE</bns:status>
+    <bns:eventType>process.execution</bns:eventType>
+    <bns:executionId>execution-6b88a5d9-64b2-4734-a1b9-0a8b847352e0-2013.09.27</bns:executionId>
+    <bns:updateDate>2013-09-27T18:00:00Z</bns:updateDate>
+    <bns:startTime>2013-09-27T18:00:00Z</bns:startTime>
+    <bns:endTime>2013-09-27T18:03:07Z</bns:endTime>
+    <bns:errorDocumentCount>0</bns:errorDocumentCount>
+    <bns:inboundDocumentCount>1</bns:inboundDocumentCount>
+    <bns:outboundDocumentCount>0</bns:outboundDocumentCount>
+    <bns:processName>1 Coupa Boupa Widget</bns:processName>
+    <bns:recordDate>2013-09-27T18:03:16Z</bns:recordDate>
+    <bns:classification>PROD</bns:classification>
+  </bns:result>
+</bns:QueryResult>

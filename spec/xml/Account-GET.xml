@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Account xmlns="http://api.platform.boomi.com/" supportLevel="standard" supportAccess="true" widgetAccount="false" dateCreated="2008-08-28T02:51:29Z" status="active" name="Boopa" accountId="account">
+    <user email="user1@boopa.com" lastName="Testuser" firstName="One"/>
+	<user email="user2@blah.com" lastName="Testuser" firstName="Two"/>
+    <licensing>
+        <standard used="23" purchased="30"/><smallBusiness used="0" purchased="30"/><enterprise used="2" purchased="30"/><tradingPartner used="1" purchased="5"/>
+    </licensing>
+</Account>

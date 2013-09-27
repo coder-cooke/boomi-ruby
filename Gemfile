@@ -12,4 +12,6 @@ group :development do
   gem "bundler"
   gem "jeweler", "~> 1.8.4"
   gem "rcov", "0.9.11"
+  gem "rspec-rails"
+  gem "fakeweb"
 end

@@ -8,6 +8,7 @@ Providing the optional override_account will use the Boomi Partner API
 
   @boomi = Boomi.new(:account => 'boomi-account123', :user => 'boomiuser', :pass => 'boomipass', :override_account => 'mychildaccount')
   @boomi.get_execution_records("executionTime[GREATER_THAN_OR_EQUAL]" => 15.minutes.ago)
+  @boomi.get_events("executionTime[GREATER_THAN_OR_EQUAL]" => 15.minutes.ago)
 
 == License
 
