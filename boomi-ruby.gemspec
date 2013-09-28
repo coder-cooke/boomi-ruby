@@ -5,25 +5,39 @@
 
 Gem::Specification.new do |s|
   s.name = "boomi-ruby"
-  s.version = "0.2.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Charles Cooke"]
-  s.date = "2013-06-25"
+  s.date = "2013-09-28"
   s.description = "Supports the Boomi REST Webservice"
   s.email = "charles@coupa.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
   ]
-
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-
+  s.files = [
+    ".document",
+    "Gemfile",
+    "Gemfile.lock",
+    "LICENSE.txt",
+    "README.rdoc",
+    "Rakefile",
+    "VERSION",
+    "boomi-ruby.gemspec",
+    "lib/boomi-ruby.rb",
+    "lib/boomi/boomi.rb",
+    "spec/boomi/boomi_spec.rb",
+    "spec/spec_helper.rb",
+    "spec/xml/Account-GET.xml",
+    "spec/xml/getEvent-1result.xml",
+    "spec/xml/getExecutionRecord-3results.xml",
+    "test/helper.rb"
+  ]
   s.homepage = "http://github.com/coupacooke/boomi-ruby"
-  s.licenses = ["APLv2"]
+  s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.11"
+  s.rubygems_version = "1.8.25"
   s.summary = "Ruby gem for Boomi webservices"
 
   if s.respond_to? :specification_version then
@@ -37,6 +51,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<bundler>, [">= 0"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_development_dependency(%q<rcov>, ["= 0.9.11"])
+      s.add_development_dependency(%q<rspec-rails>, [">= 0"])
+      s.add_development_dependency(%q<fakeweb>, [">= 0"])
     else
       s.add_dependency(%q<rest-client>, ["~> 1.6.0"])
       s.add_dependency(%q<xml-simple>, ["~> 1.0.0"])
@@ -45,6 +61,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<bundler>, [">= 0"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
       s.add_dependency(%q<rcov>, ["= 0.9.11"])
+      s.add_dependency(%q<rspec-rails>, [">= 0"])
+      s.add_dependency(%q<fakeweb>, [">= 0"])
     end
   else
     s.add_dependency(%q<rest-client>, ["~> 1.6.0"])
@@ -54,6 +72,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<bundler>, [">= 0"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.4"])
     s.add_dependency(%q<rcov>, ["= 0.9.11"])
+    s.add_dependency(%q<rspec-rails>, [">= 0"])
+    s.add_dependency(%q<fakeweb>, [">= 0"])
   end
 end
 
