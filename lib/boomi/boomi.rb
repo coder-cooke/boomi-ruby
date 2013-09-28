@@ -109,7 +109,7 @@ EXPR
             if xml_doc['result']
               xml_doc['result'].is_a?(Array) ? results + xml_doc['result'] : [xml_doc['result']]
             end
-          query_token = xml_doc['queryToken'] && xml_doc['queryToken'].first
+          query_token = xml_doc['queryToken']
         end
       rescue RestClient::BadRequest => e
         puts e.http_body
@@ -117,7 +117,7 @@ EXPR
       rescue RestClient::InternalServerError => e
         puts "Received error from server, stopped processing but dealing with any results that exist: #{e}"
         error = true
-      end while query_token && !error && attempts < 50 
+      end while query_token.present? && !error && attempts < 50 
       results
     end
   
