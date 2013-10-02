@@ -1,8 +1,8 @@
 source "http://rubygems.org"
 # Add dependencies required to use your gem here.
 # Example:
-gem "rest-client", "~> 1.6.0"
-gem "xml-simple", "~> 1.0.0", :require => 'xmlsimple'
+gem "rest-client", "~> 1.0.0"
+gem "xml-simple", "1.0.12", :require => 'xmlsimple'
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.

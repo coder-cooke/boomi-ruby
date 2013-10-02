@@ -32,7 +32,7 @@ describe Boomi do
 
       it 'should be able to retrieve events for execution record' do
         FakeWeb.register_uri(:post, %r(https://.*@platform.boomi.com/api/rest/v1/.*/ExecutionRecord/.*), :body => File.join(XML_PATH, "getExecutionRecord-3results.xml"))
-#        FakeWeb.register_uri(:post, %r(https://.*@platform.boomi.com/api/rest/v1/.*/Event/.*), :body => File.join(XML_PATH, "getEvent-1result.xml"))
+        FakeWeb.register_uri(:post, %r(https://.*@platform.boomi.com/api/rest/v1/.*/Event/.*), :body => File.join(XML_PATH, "getEvent-1result.xml"))
         records = @boomi.get_execution_records("executionTime[GREATER_THAN_OR_EQUAL]" => Time.now-15*60)
         records.size.should == 3
         events = @boomi.get_events("executionId[EQUALS]" => records[0]['executionId'], "eventDate[GREATER_THAN_OR_EQUAL]" => records[0]['executionTime'])

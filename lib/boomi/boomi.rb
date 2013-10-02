@@ -3,7 +3,8 @@ class Boomi
   BASE_PARTNER_URI = "https://platform.boomi.com/partner/api/rest/v1"
   
   def initialize(opts)
-    @resource         = RestClient::Resource.new(opts[:override_account] ? BASE_PARTNER_URI : BASE_URI, :user => opts[:user], :password => opts[:pass])
+    opts = symbolize_keys(opts)
+    @resource         = RestClient::Resource.new(opts[:override_account] ? BASE_PARTNER_URI : BASE_URI, :user => opts[:user], :password => opts[:pass], :timeout => opts[:timeout] || 60)
     @override_account = opts[:override_account]
     @account          = opts[:account]
   end
@@ -40,7 +41,6 @@ EOS
     post("#{@account}/Event/query"+(@override_account ? "?overrideAccount=#{@override_account}" : ""), make_query(opts))
   end
 
-
   def get_execution_records(opts)
     post("#{@account}/ExecutionRecord/query"+(@override_account ? "?overrideAccount=#{@override_account}" : ""), make_query(opts))
   end
@@ -62,6 +62,11 @@ EOS
   end
 
   private
+
+    def symbolize_keys(hash)
+      Hash[hash.map{ |k, v| [k.to_sym, v] }]
+    end
+
     def make_query(opts)
       query = <<-EXPR
 <QueryConfig xmlns="http://api.platform.boomi.com/">
@@ -88,7 +93,7 @@ EXPR
 
     def get(url)
       contents = @resource[url].get
-      parsed = parse(contents)
+      parse(contents)
     end
 
     def post(url,content)
@@ -111,18 +116,17 @@ EXPR
             end
           query_token = xml_doc['queryToken']
         end
-      rescue RestClient::BadRequest => e
-        puts e.http_body
-        error = true
-      rescue RestClient::InternalServerError => e
-        puts "Received error from server, stopped processing but dealing with any results that exist: #{e}"
-        error = true
-      end while query_token.present? && !error && attempts < 50 
+      end while query_token && !error && attempts < 50
       results
     end
   
     def parse(content)
-      return if content.empty?
-      XmlSimple.xml_in(content, { 'NoAttr' => true, 'ForceArray' => false})
+      return if content.to_s.empty?
+      xml_simple.xml_in(content.to_s)
+    end
+
+    # For some reason XmlSimple breaks in some dependencies when use with the class method syntax
+    def xml_simple
+      @simple ||= XmlSimple.new('NoAttr' => true, 'ForceArray' => false)
     end
 end

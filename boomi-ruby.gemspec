@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Charles Cooke"]
-  s.date = "2013-09-28"
+  s.date = "2013-10-02"
   s.description = "Supports the Boomi REST Webservice"
   s.email = "charles@coupa.com"
   s.extra_rdoc_files = [
@@ -44,8 +44,8 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rest-client>, ["~> 1.6.0"])
-      s.add_runtime_dependency(%q<xml-simple>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<rest-client>, ["~> 1.0.0"])
+      s.add_runtime_dependency(%q<xml-simple>, ["= 1.0.12"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_development_dependency(%q<bundler>, [">= 0"])
@@ -54,8 +54,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rspec-rails>, [">= 0"])
       s.add_development_dependency(%q<fakeweb>, [">= 0"])
     else
-      s.add_dependency(%q<rest-client>, ["~> 1.6.0"])
-      s.add_dependency(%q<xml-simple>, ["~> 1.0.0"])
+      s.add_dependency(%q<rest-client>, ["~> 1.0.0"])
+      s.add_dependency(%q<xml-simple>, ["= 1.0.12"])
       s.add_dependency(%q<shoulda>, [">= 0"])
       s.add_dependency(%q<rdoc>, ["~> 3.12"])
       s.add_dependency(%q<bundler>, [">= 0"])
@@ -65,8 +65,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<fakeweb>, [">= 0"])
     end
   else
-    s.add_dependency(%q<rest-client>, ["~> 1.6.0"])
-    s.add_dependency(%q<xml-simple>, ["~> 1.0.0"])
+    s.add_dependency(%q<rest-client>, ["~> 1.0.0"])
+    s.add_dependency(%q<xml-simple>, ["= 1.0.12"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<rdoc>, ["~> 3.12"])
     s.add_dependency(%q<bundler>, [">= 0"])
