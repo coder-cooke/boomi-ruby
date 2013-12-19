@@ -14,4 +14,6 @@ group :development do
   gem "rcov", "0.9.11"
   gem "rspec-rails"
   gem "fakeweb"
+  gem "guard"
+  gem "guard-rspec"
 end

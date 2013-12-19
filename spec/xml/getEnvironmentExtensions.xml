@@ -1,0 +1,53 @@
+<bns:EnvironmentExtensions xmlns:bns="http://api.platform.boomi.com/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" environmentId="myfakeaccount">
+  <bns:connections>
+    <bns:connection name="Coupa Connection" id="fake-id">
+      <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="https://demo.coupahost.com/api" id="url" />
+      <bns:field componentOverride="false" usesEncryption="true" encryptedValueSet="true" id="token" />
+    </bns:connection>
+    <bns:connection name="sFTP - External" id="external-sftp">
+      <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="myhost.com" id="host" />
+      <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="port" />
+      <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="myhost-test" id="user" />
+      <bns:field componentOverride="false" usesEncryption="true" encryptedValueSet="true" id="password" />
+    </bns:connection>
+  </bns:connections>
+  <bns:tradingPartners>
+    <bns:tradingPartner name="Partner - 850 PO - PROD" id="partner-id">
+      <bns:category name="SFTP" id="sftp">
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="true" id="sftpsettings-password" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="22" id="sftpsettings-port" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="myuser" id="sftpsettings-user" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="myuser.myhost.com" id="sftpsettings-host" />
+      </bns:category>
+      <bns:category name="FTP" id="ftp">
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="ftpsettings-port" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="NOTUSED" id="ftpsettings-user" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="ftpsettings-password" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="NOTUSED" id="ftpsettings-host" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="ftpsettings-connectionmode" />
+      </bns:category>
+    </bns:tradingPartner>
+    <bns:tradingPartner name="Company - AS2 - PROD" id="other-boomi-id">
+      <bns:category name="SFTP" id="sftp">
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="sftpsettings-password" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="sftpsettings-port" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="NOTUSED" id="sftpsettings-user" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="NOTUSED" id="sftpsettings-host" />
+      </bns:category>
+      <bns:category name="AS2" id="as2">
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="NOTUSED" id="as2identity-as2Id" />
+      </bns:category>
+      <bns:category name="FTP" id="ftp">
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="ftpsettings-port" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="NOTUSED" id="ftpsettings-user" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" id="ftpsettings-password" />
+        <bns:field componentOverride="false" usesEncryption="false" encryptedValueSet="false" value="NOTUSED" id="ftpsettings-host" />
+      </bns:category>
+    </bns:tradingPartner>
+  </bns:tradingPartners>
+  <bns:properties>
+    <bns:property value="testproperty" name="config-source-testproperty" />
+    <bns:property value="TEST" name="config-environment" />
+    <bns:property name="config-orderguide-disable_contracts" />
+  </bns:properties>
+</bns:EnvironmentExtensions>

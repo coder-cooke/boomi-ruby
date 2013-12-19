@@ -14,7 +14,7 @@ class Boomi
   end
   
   def get_account
-    get(@resource["#{@account}/Account/query"])
+    get(make_url("Account/query", :override => false))
   end
   
   def query_account
@@ -38,11 +38,24 @@ EOS
   end
   
   def get_events(opts)
-    post("#{@account}/Event/query"+(@override_account ? "?overrideAccount=#{@override_account}" : ""), make_query(opts))
+    post(make_url("Event/query"), make_query(opts))
   end
 
   def get_execution_records(opts)
-    post("#{@account}/ExecutionRecord/query"+(@override_account ? "?overrideAccount=#{@override_account}" : ""), make_query(opts))
+    post(make_url("ExecutionRecord/query"), make_query(opts))
+  end
+
+  def get_environment_extensions_xml(environment_id)
+    get(make_url("EnvironmentExtensions/#{environment_id}"), :parse_response => false)
+  end
+
+  def set_environment_extensions_xml(environment_id, request_xml)
+    post(make_url("EnvironmentExtensions/#{environment_id}"), request_xml, :paginated_response => false, :parse_response => false)
+  end
+
+  def copy_environment_extensions_xml(from_id,to_id)
+    request = get_environment_extensions_xml(from_id).sub!(/#{from_id}/, to_id)
+    set_environment_extensions_xml(to_id, request)
   end
   
   def execute_process(atom_id,process_id)
@@ -65,6 +78,11 @@ EOS
 
     def symbolize_keys(hash)
       Hash[hash.map{ |k, v| [k.to_sym, v] }]
+    end
+
+    def make_url(url,opts={})
+      opts = { :override => true }.merge(opts)
+      "#{@account}/#{url}"+(opts[:override] && @override_account ? "?overrideAccount=#{@override_account}" : "")
     end
 
     def make_query(opts)
@@ -91,12 +109,13 @@ EXPR
       t.utc.strftime("%Y-%m-%dT%H:%M:%SZ")
     end
 
-    def get(url)
-      contents = @resource[url].get
-      parse(contents)
+    def get(url,opts={})
+      opts = { :parse_response => true }.merge(opts)
+      opts[:parse_response] ? parse(@resource[url].get) : @resource[url].get
     end
 
-    def post(url,content)
+    def post(url,content,opts={})
+      opts = { :parse_response => true, :paginated_response => true }.merge(opts)
       results = []
       response = ''
       query_token = nil
@@ -109,12 +128,14 @@ EXPR
         else
           response = @resource[url].post(content)
         end
-        if xml_doc = parse(response)
+        if opts[:paginated_response] && xml_doc = parse(response)
           results =
             if xml_doc['result']
               xml_doc['result'].is_a?(Array) ? results + xml_doc['result'] : [xml_doc['result']]
             end
           query_token = xml_doc['queryToken']
+        else
+          return opts[:parse_response] ? parse(response) : response
         end
       end while query_token && !error && attempts < 50
       results

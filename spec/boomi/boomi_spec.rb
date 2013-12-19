@@ -9,7 +9,7 @@ describe Boomi do
     # RestClient.log = Logger.new(STDOUT)
     # RestClient.proxy = 'http://localhost:8080/'
 
-#    FakeWeb.allow_net_connect = false
+    # FakeWeb.allow_net_connect = false
   end
 
   context "parent account" do
@@ -37,6 +37,13 @@ describe Boomi do
         records.size.should == 3
         events = @boomi.get_events("executionId[EQUALS]" => records[0]['executionId'], "eventDate[GREATER_THAN_OR_EQUAL]" => records[0]['executionTime'])
         events.size.should == 1
+      end
+
+      it 'should be able to copy environment extensions' do
+        FakeWeb.register_uri(:get, %r(https://.*@platform.boomi.com/api/rest/v1/.*/EnvironmentExtensions/myfakeaccount), :body => File.join(XML_PATH, "getEnvironmentExtensions.xml"))
+        FakeWeb.register_uri(:post, %r(https://.*@platform.boomi.com/api/rest/v1/.*/EnvironmentExtensions/mynewaccount), :body => File.join(XML_PATH, "getEnvironmentExtensions.xml"))
+        records = @boomi.copy_environment_extensions_xml("myfakeaccount", "mynewaccount")
+        records.should_not be_empty
       end
     end
   end
