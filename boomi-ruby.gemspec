@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "boomi-ruby"
-  s.version = "0.3.0"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Charles Cooke"]
-  s.date = "2013-10-02"
+  s.date = "2013-12-30"
   s.description = "Supports the Boomi REST Webservice"
   s.email = "charles@coupa.com"
   s.extra_rdoc_files = [
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
     ".document",
     "Gemfile",
     "Gemfile.lock",
+    "Guardfile",
     "LICENSE.txt",
     "README.rdoc",
     "Rakefile",
@@ -30,6 +31,7 @@ Gem::Specification.new do |s|
     "spec/boomi/boomi_spec.rb",
     "spec/spec_helper.rb",
     "spec/xml/Account-GET.xml",
+    "spec/xml/getEnvironmentExtensions.xml",
     "spec/xml/getEvent-1result.xml",
     "spec/xml/getExecutionRecord-3results.xml",
     "test/helper.rb"
@@ -53,6 +55,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<rcov>, ["= 0.9.11"])
       s.add_development_dependency(%q<rspec-rails>, [">= 0"])
       s.add_development_dependency(%q<fakeweb>, [">= 0"])
+      s.add_development_dependency(%q<guard>, [">= 0"])
+      s.add_development_dependency(%q<guard-rspec>, [">= 0"])
     else
       s.add_dependency(%q<rest-client>, ["~> 1.0.0"])
       s.add_dependency(%q<xml-simple>, ["= 1.0.12"])
@@ -63,6 +67,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<rcov>, ["= 0.9.11"])
       s.add_dependency(%q<rspec-rails>, [">= 0"])
       s.add_dependency(%q<fakeweb>, [">= 0"])
+      s.add_dependency(%q<guard>, [">= 0"])
+      s.add_dependency(%q<guard-rspec>, [">= 0"])
     end
   else
     s.add_dependency(%q<rest-client>, ["~> 1.0.0"])
@@ -74,6 +80,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<rcov>, ["= 0.9.11"])
     s.add_dependency(%q<rspec-rails>, [">= 0"])
     s.add_dependency(%q<fakeweb>, [">= 0"])
+    s.add_dependency(%q<guard>, [">= 0"])
+    s.add_dependency(%q<guard-rspec>, [">= 0"])
   end
 end
 
