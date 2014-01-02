@@ -139,7 +139,7 @@ class Boomi
         if query_token
           response = @resource["#{url.gsub(/query/,'queryMore')}"].post(query_token)
         else
-          response = @resource[url].post(content);
+          response = @resource[url].post(content)
         end
         if opts[:paginated_response] && xml_doc = parse(response)
           results =
