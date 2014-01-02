@@ -45,6 +45,40 @@ describe Boomi do
         records = @boomi.copy_environment_extensions_xml("myfakeaccount", "mynewaccount")
         records.should_not be_empty
       end
+
+      it 'should be able to use dynamic process properties' do
+        # Execute a process and provide a hash of dynamic process property names and values
+        FakeWeb.register_uri(:post, %r(https://.*@platform.boomi.com/api/rest/v1/.*/executeProcess), :body => File.join(XML_PATH, "getExecutionRecord-3results.xml"))
+        extensions = {"StartTime" => "2013-09-20T00:00:00.000Z", "EndTime" => "2013-09-30T00:00:00.000Z"}
+        @boomi.execute_process("test_atom_id", "test_process_id", extensions)
+        records = @boomi.get_execution_records("executionTime[GREATER_THAN_OR_EQUAL]" => Time.now-15*60)
+        records.size.should == 3
+        records.first['account'].should == 'Boupa'
+
+        events = @boomi.get_events("executionId[EQUALS]" => records[0]['executionId'], "eventDate[GREATER_THAN_OR_EQUAL]" => records[0]['executionTime'])
+        events.size.should == 1
+
+        # Execute a process and provide nil, instead of a hash of dynamic process property names and values
+        @boomi.execute_process("test_atom_id", "test_process_id", nil)
+        records = @boomi.get_execution_records("executionTime[GREATER_THAN_OR_EQUAL]" => Time.now-15*60)
+        records.size.should == 3
+        records.first['account'].should == 'Boupa'
+
+        events = @boomi.get_events("executionId[EQUALS]" => records[0]['executionId'], "eventDate[GREATER_THAN_OR_EQUAL]" => records[0]['executionTime'])
+        events.size.should == 1
+
+        # Execute a process and provide an empty hash, to ensure there is still no error
+        empty_extensions = {}
+
+        @boomi.execute_process("test_atom_id", "test_process_id", empty_extensions)
+        records = @boomi.get_execution_records("executionTime[GREATER_THAN_OR_EQUAL]" => Time.now-15*60)
+        records.size.should == 3
+        records.first['account'].should == 'Boupa'
+
+        events = @boomi.get_events("executionId[EQUALS]" => records[0]['executionId'], "eventDate[GREATER_THAN_OR_EQUAL]" => records[0]['executionTime'])
+        events.size.should == 1
+      end
+
     end
   end
 end
