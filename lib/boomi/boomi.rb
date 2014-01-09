@@ -84,11 +84,7 @@ class Boomi
   end
 
   private
-
-    def build_process_prop_str(properties_hash)
-
-    end
-
+ 
     def symbolize_keys(hash)
       Hash[hash.map{ |k, v| [k.to_sym, v] }]
     end
