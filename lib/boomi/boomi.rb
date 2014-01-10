@@ -1,7 +1,7 @@
 class Boomi
   BASE_URI         = "https://platform.boomi.com/api/rest/v1"
   BASE_PARTNER_URI = "https://platform.boomi.com/partner/api/rest/v1"
-  
+
   def initialize(opts)
     opts = symbolize_keys(opts)
     @resource         = RestClient::Resource.new(opts[:override_account] ? BASE_PARTNER_URI : BASE_URI, :user => opts[:user], :password => opts[:pass], :timeout => opts[:timeout] || 60)
@@ -9,7 +9,7 @@ class Boomi
     @account          = opts[:account]
   end
 
-  def get_widget_list(widget_manager_id,partner_user_id)
+  def get_widget_list(widget_manager_id, partner_user_id)
     response(@resource["getWidgetList/#{widget_manager_id}/#{partner_user_id}?overrideAccountId=#{@override_account}"])
   end
   
@@ -19,22 +19,23 @@ class Boomi
   
   def query_account
     query = <<-EOS
-<QueryConfig xmlns="http://api.platform.boomi.com/">
-  <QueryMore>
-      <QueryToken>%s</QueryToken>
-  </QueryMore>
-  <QueryFilter>
-    <expression operator="and" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:type="GroupingExpression">
-<nestedExpression operator="GREATER_THAN_OR_EQUAL" property="dateCreated"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SimpleExpression">
-        <argument>1980-01-01T00:00:00Z</argument>
-      </nestedExpression>
-    </expression>
-  </QueryFilter>
-</QueryConfig>
-EOS
-    post("#{@account}/Account/query",query)
+              <QueryConfig xmlns="http://api.platform.boomi.com/">
+                <QueryMore>
+                    <QueryToken>%s</QueryToken>
+                </QueryMore>
+                <QueryFilter>
+                  <expression operator="and" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:type="GroupingExpression">
+              <nestedExpression operator="GREATER_THAN_OR_EQUAL" property="dateCreated"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="SimpleExpression">
+                      <argument>1980-01-01T00:00:00Z</argument>
+                    </nestedExpression>
+                  </expression>
+                </QueryFilter>
+              </QueryConfig>
+            EOS
+
+    post("#{@account}/Account/query", query)
   end
   
   def get_events(opts)
@@ -53,56 +54,64 @@ EOS
     post(make_url("EnvironmentExtensions/#{environment_id}"), request_xml, :paginated_response => false, :parse_response => false)
   end
 
-  def copy_environment_extensions_xml(from_id,to_id)
+  def copy_environment_extensions_xml(from_id, to_id)
     request = get_environment_extensions_xml(from_id).sub!(/#{from_id}/, to_id)
     set_environment_extensions_xml(to_id, request)
   end
-  
-  def execute_process(atom_id,process_id)
-    query = <<-EOS
-<ProcessExecutionRequest processId="#{process_id}" atomId="#{atom_id}" xmlns="http://api.platform.boomi.com/">
-    <ProcessProperties>
-        <!-- Zero or more repetitions: -->
-        <!-- TODO: parameterize this -->
-        <!-- <ProcessProperty>
-            <Name>?</Name>
-            <Value>?</Value>
-        </ProcessProperty> -->
-    </ProcessProperties>
-</ProcessExecutionRequest>
-EOS
-    post("#{@account}/executeProcess",query)
+
+  def execute_process(atom_id, process_id, process_hash)
+    request_head = "<ProcessExecutionRequest processId=\"#{process_id}\" atomId=\"#{atom_id}\" xmlns=\"http://api.platform.boomi.com/\">"
+    request_tail = "</ProcessExecutionRequest>"
+
+    if process_hash.nil? or process_hash.empty?
+      query = request_head + request_tail
+    elsif !process_hash.nil? and !process_hash.empty? and process_hash.is_a? Hash
+      request_head += "<ProcessProperties>\n"
+
+      process_hash.each do |key, value|
+        request_head += <<-EOS
+                          <ProcessProperty>
+                            <Name>#{key}</Name>
+                            <Value>#{value}</Value>
+                          </ProcessProperty>
+                        EOS
+      end
+
+      query = request_head + "</ProcessProperties>\n" + request_tail
+    end
+
+    post("#{@account}/executeProcess", query)
   end
 
   private
-
+ 
     def symbolize_keys(hash)
       Hash[hash.map{ |k, v| [k.to_sym, v] }]
     end
 
-    def make_url(url,opts={})
+    def make_url(url, opts={})
       opts = { :override => true }.merge(opts)
       "#{@account}/#{url}"+(opts[:override] && @override_account ? "?overrideAccount=#{@override_account}" : "")
     end
 
     def make_query(opts)
       query = <<-EXPR
-<QueryConfig xmlns="http://api.platform.boomi.com/">
-  <QueryFilter>
-    <expression operator="and" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="GroupingExpression">
-      #{opts.collect do |key,value| 
-          field, operator = key.gsub(/\]/,'').split('[').collect(&:to_s)
-          operator ||= 'EQUALS'
+                <QueryConfig xmlns="http://api.platform.boomi.com/">
+                  <QueryFilter>
+                    <expression operator="and" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="GroupingExpression">
+                      #{opts.collect do |key,value| 
+                          field, operator = key.gsub(/\]/,'').split('[').collect(&:to_s)
+                          operator ||= 'EQUALS'
 
-          "<nestedExpression operator='#{operator}' property='#{field}' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:type='SimpleExpression'>
-              <argument>#{value.is_a?(Time) ? boomi_time(value) : value}</argument>
-          </nestedExpression>"
-        end.join("\n")
-      }
-    </expression>
-  </QueryFilter>
-</QueryConfig>
-EXPR
+                          "<nestedExpression operator='#{operator}' property='#{field}' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:type='SimpleExpression'>
+                              <argument>#{value.is_a?(Time) ? boomi_time(value) : value}</argument>
+                          </nestedExpression>"
+                        end.join("\n")
+                      }
+                    </expression>
+                  </QueryFilter>
+                </QueryConfig>
+              EXPR
     end
 
     def boomi_time(t)
